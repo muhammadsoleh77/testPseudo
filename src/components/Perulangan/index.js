@@ -6,7 +6,6 @@ function Perulangan() {
     const navigate = useNavigate()
     const [variable, setVariable] = useState(null)
     const [result, setResult] = useState([])
-    const [br, setBr] = useState('')
 
     const changeAngkaPerulangan = (e) => {
         setVariable(e.target.value)
@@ -44,7 +43,7 @@ function Perulangan() {
                 <button onClick={clickEnterPerulangan}>ENTER</button>
             </p>
 
-            <p>{result}{br}</p>
+            <p>{result}</p>
 
             <button
                 style={{

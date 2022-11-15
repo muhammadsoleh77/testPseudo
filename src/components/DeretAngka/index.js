@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function DeretAngka() {
 
     const navigate = useNavigate()
     const [sum, setSum] = useState([])
+
+    const [kurang, setKurang] = useState([])
+    const [cukup, setCukup] = useState('')
+    const [baik, setBaik] = useState('')
+    const [luarbiasa, setLuarbiasa] = useState('')
 
     useEffect(() => {
         var x = 5;
@@ -18,6 +23,33 @@ function DeretAngka() {
         }
         setSum(array)
     }, [])
+
+    useEffect(() => {
+
+        let dataKurang = []
+        let dataCukup = []
+        let dataBaik = []
+        let dataLuarbiasa = []
+
+        if (sum.length !== 0) {
+            sum.forEach((el) => {
+                if (el <= 60) {
+                    dataKurang.push(`KURANG ${el} `)
+                    setKurang(dataKurang)
+                    return false
+                } else if (el > 60 && el <= 70) {
+                    dataCukup.push(`CUKUP ${el} `)
+                    setCukup(dataCukup)
+                } else if (el > 70 && el <= 80) {
+                    dataBaik.push(`BAIK ${el} `)
+                    setBaik(dataBaik)
+                } else if (el > 80) {
+                    dataLuarbiasa.push(`LUAR BIASA ${el} `)
+                    setLuarbiasa(dataLuarbiasa)
+                }
+            })
+        }
+    }, [sum])
 
     const kembali = () => {
         navigate('/main')
@@ -33,27 +65,7 @@ function DeretAngka() {
             }}
         >
             <p><b>DATA DERET ANGKA KELIPATAN 5</b></p>
-            {
-                sum.map((el) => {
-                    if(el <= 60) {
-                        return (
-                            <>{`KURANG ${el}, `}</>
-                        )
-                    } else if(el > 60 && el <= 70) {
-                        return (
-                            <>{`CUKUP ${el}, `}</>
-                        )
-                    } else if(el > 70 && el <= 80) {
-                        return (
-                            <>{`BAIK ${el}, `}</>
-                        )
-                    } else if(el > 80) {
-                        return (
-                            <>{`LUAR BIASA ${el}, `}</>
-                        )
-                    }
-                })
-            }
+            {kurang}{cukup}{baik}{luarbiasa}
 
             <button
                 style={{
